@@ -1,15 +1,18 @@
 <template>
   <v-app>
+    <v-content>
+    <router-view></router-view>
+  </v-content>
   </v-app>
 </template>
 
 <script>
-import BlankComponent from './components/BlankComponent'
+
 
 export default {
   name: 'App',
   components: {
-    BlankComponent
+
   },
   data () {
     return {
