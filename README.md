@@ -1,29 +1,9 @@
-# vue-vuetify-codesandbox-template
+# Blob Tanks
 
-## Project setup
-```
-npm install
-```
+## Info
+Blob tanks is an IO like game developed for a multimedia project.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This application was developed on the Vue.js framework hosted on Netify with the backend hosted in Node.js on Heroku.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+You can visit the application [here](blobtanks.com).
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
