@@ -367,6 +367,10 @@
 			updateScreen(data);
 		})
 
+		socket.on("kill", function() {
+			router.push({ path: 'home' });
+		})
+
 
 
 		//Input relayed to server
@@ -388,7 +392,7 @@
 			}
 			if ( keysDown[settings.upKey] || keysDown[settings.upKeyAlt] ) {
 				packet.yVel = -1;
-			} else if ( keysDown[settings.downKey] || keysDown[settings.downKey] ) {
+			} else if ( keysDown[settings.downKey] || keysDown[settings.downKeyAlt] ) {
 				packet.yVel = 1;
 			}
 
