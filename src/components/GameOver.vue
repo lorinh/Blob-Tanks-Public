@@ -28,7 +28,7 @@
 			images: {
 				mainLogo: require('../../images/GameOver.png'),
 				gradiant: require('../../images/Gradiant.gif')
-			}
+			},
 			texts: {
 				mainMenu: "Main Menu",
 			}
