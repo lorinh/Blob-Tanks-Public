@@ -10,7 +10,7 @@
   		<p class="arial" >Welcome to Blob tanks!</p>
   		 <p class="arial">A top down tank shooting game</p>
   		 <v-btn color="success" class="align-right" to="/game">Play</v-btn>
-  		 <CustomButton v-bind:text="Play"></CustomButton>
+  		 <CustomButton v-bind:text="texts.play"/>
   	</v-window>
   </v-container>
 </template>
@@ -29,6 +29,9 @@
 			images: {
 				mainLogo: require('../../images/MainLogo.png'),
 				gradiant: require('../../images/Gradiant.gif')
+			},
+			texts: {
+				play: "Play",
 			}
 	    })
 	  }
