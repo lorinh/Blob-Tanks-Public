@@ -9,7 +9,7 @@
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
   		<p class="arial" >You have passed away....</p>
   		 <p class="arial">Better luck next time!</p>
-  		 <CustomButton v-bind:text="texts.mainMenu"/>
+  		 <CustomButton v-bind:text="texts.mainMenu" v-bind:goal="goals.mainMenu"/>
   	</v-window>
   </v-container>
 </template>
@@ -31,6 +31,9 @@
 			},
 			texts: {
 				mainMenu: "Main Menu",
+			},
+			goals: {
+				mainMenu: "/"
 			}
 	    })
 	  }

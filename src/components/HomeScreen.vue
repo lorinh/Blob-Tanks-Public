@@ -9,7 +9,7 @@
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
   		 <CustomP v-bind:text="texts.text1"/>
   		 <CustomP v-bind:text="texts.text2"/>
-  		 <CustomButton v-bind:text="texts.play"/>
+  		 <CustomButton v-bind:text="texts.play" v-bind:text="goals.game"/>
   	</v-window>
   </v-container>
 </template>
@@ -35,6 +35,9 @@
 				play: "Play",
 				text1: "Welcome to Blob tanks!",
 				text2: "A top down tank shooting game",
+			},
+			goals: {
+				game: "/game"
 			}
 	    })
 	  }
