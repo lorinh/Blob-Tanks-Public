@@ -10,16 +10,20 @@
   		<p class="arial" >Welcome to Blob tanks!</p>
   		 <p class="arial">A top down tank shooting game</p>
   		 <v-btn color="success" class="align-right" to="/game">Play</v-btn>
+  		 <CustomButton v-bind:text="Play"></CustomButton>
   	</v-window>
   </v-container>
 </template>
 
 <script>
 	import Game from "../components/Game";
+	import CustomButton from "../components/CustomButton";
+
 	export default {
 		name: "HomeScreen",
 		components: {
-			Game
+			Game,
+			CustomButton,
 		},
 		data: () => ({
 			images: {
