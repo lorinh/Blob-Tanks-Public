@@ -369,7 +369,7 @@
 
 		socket.on("kill", function() {
 			console.log("Got kill event, sending home");
-			router.push({ path: 'home' });
+			this.$router.push({ path: 'home' });
 		})
 
 
