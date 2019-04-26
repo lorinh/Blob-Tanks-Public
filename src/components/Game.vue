@@ -12,10 +12,15 @@
 
 	Vue.use(VueRouter)
 
-	
+
 	export default {
 		name: "Game",
 		data: () => ({}),
+		methods: {
+			goHome() {
+				this.$router.push({ path: '/' });
+			}
+		}
 	}
 
 	let settings = {
@@ -376,7 +381,8 @@
 
 		socket.on("kill", function() {
 			console.log("Got kill event, sending home");
-			this.$router.push({ path: 'home' });
+			goHome();
+			//this.$router.push({ path: 'home' });
 		})
 
 
