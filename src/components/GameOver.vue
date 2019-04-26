@@ -7,9 +7,9 @@
   		<v-img :src="images.mainLogo" aspect-ratio="5.8" width="800px" class="titleContainer"></v-img>
  	</v-container>
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
-  		<p class="arial" >Welcome to Blob tanks!</p>
-  		 <p class="arial">A top down tank shooting game</p>
-  		 <v-btn color="success" class="align-right" to="/game">Play</v-btn>
+  		<p class="arial" >You have passed away....</p>
+  		 <p class="arial">Better luck next time!</p>
+  		 <v-btn color="success" class="align-right" to="/">Main Menu</v-btn>
   	</v-window>
   </v-container>
 </template>
@@ -23,7 +23,7 @@
 		},
 		data: () => ({
 			images: {
-				mainLogo: require('../../images/MainLogo.png'),
+				mainLogo: require('../../images/GameOver.png'),
 				gradiant: require('../../images/Gradiant.gif')
 			}
 	    })

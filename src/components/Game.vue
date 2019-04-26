@@ -372,7 +372,7 @@
 			console.log("Got kill event, sending home");
 
 			//this.$router.push({ path: 'home' }); //This would be preferred, but I couldn't get it working
-			window.location = "https://www.blobtanks.com/"; // So we do this instead
+			window.location = "https://www.blobtanks.com/#/gameover"; // So we do this instead
 		})
 
 
