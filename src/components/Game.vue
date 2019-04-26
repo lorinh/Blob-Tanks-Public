@@ -7,20 +7,9 @@
 
 <script>
 
-	import Vue from 'vue'
-	import VueRouter from 'vue-router'
-
-	Vue.use(VueRouter)
-
-
 	export default {
 		name: "Game",
 		data: () => ({}),
-		methods: {
-			goHome() {
-				this.$router.push({ path: '/' });
-			}
-		}
 	}
 
 	let settings = {
@@ -381,7 +370,8 @@
 
 		socket.on("kill", function() {
 			console.log("Got kill event, sending home");
-			goHome();
+			//goHome();
+			window.location = "https://www.blobtanks.com/";
 			//this.$router.push({ path: 'home' });
 		})
 
