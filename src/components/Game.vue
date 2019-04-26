@@ -343,8 +343,9 @@
 		await screen.init();
 
 		//screen.canvas.style.height = (screen.canvas.offsetWidth / 1.7777) + "px";
+		screen.canvas.height = "0px";
 		calculateHeight();
-
+		screen.canvas.height = settings.canvasHeight;
 
 		var socket = io("https://blobtanks.herokuapp.com");
 
