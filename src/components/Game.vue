@@ -58,7 +58,7 @@
 	    		}
 	    	}
 
-	    	//Wait for iamges to load
+	    	//Wait for images to load
 	    	while (this.imageCounter < localImageCounter) { 
 	    		await sleep(100);
 	    		console.log("waiting for images to load..." + this.imageCounter + " of " + localImageCounter);
@@ -241,10 +241,10 @@
 		screen.context.fillStyle = "rgba(0,0,0,1)";
 		screen.context.font = "30px Balloons";
 		screen.context.textAlign = "center"
-		screen.context.fillText(localPlayer.levelScore, yPosition, 837);
+		screen.context.fillText(localPlayer.levelScore, 800, yPosition + 37);
 
 		if (localPlayer.levelScore >= localPlayer.goalScore) {
-			screen.context.fillText("Press Space to level up", yPosition, 787);
+			screen.context.fillText("Press Space to level up", 800, yPosition - 23);
 		}
 	}
 
@@ -320,7 +320,7 @@
 
 		if (estimateHeight > maxHeight) {
 
-			customHeight.proportion = estimateHeight / maxHeight;
+			customHeight.proportion = maxHeight / estimateHeight;
 
 			estimateHeight = maxHeight;
 
