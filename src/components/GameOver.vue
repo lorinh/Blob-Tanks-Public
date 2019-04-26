@@ -17,7 +17,7 @@
 <script>
 	import Game from "../components/Game";
 	export default {
-		name: "HomeScreen",
+		name: "GameOver",
 		components: {
 			Game
 		},

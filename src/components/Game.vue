@@ -370,9 +370,9 @@
 
 		socket.on("kill", function() {
 			console.log("Got kill event, sending home");
-			//goHome();
-			window.location = "https://www.blobtanks.com/";
-			//this.$router.push({ path: 'home' });
+
+			//this.$router.push({ path: 'home' }); //This would be preferred, but I couldn't get it working
+			window.location = "https://www.blobtanks.com/"; // So we do this instead
 		})
 
 
