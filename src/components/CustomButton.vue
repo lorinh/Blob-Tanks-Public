@@ -1,6 +1,6 @@
 <template >
   <v-container>
-  		 <v-btn color="success" class="align-right" :to={{goal}}>{{text}}</v-btn>
+  		 <v-btn color="success" class="align-right" :to="goal" >{{text}}</v-btn>
   </v-container>
 </template>
 
