@@ -109,6 +109,12 @@
 		y: 0,
 	}
 
+	let customHeight = {
+		custom: false,
+		height: 0,
+		proportion: 0,
+	}
+
 
 	// Designs of different levels of tanks
 	let levelTanks = [
@@ -204,10 +210,16 @@
 	//Draws bottom bar and score
 	function drawScore(localPlayer) {
 
+		let yPosition = 800;
+
+		if (customHeight.custom) {
+			yPosition *= customHeight.proportion;
+		}
+
 		screen.context.fillStyle = "rgba(0,0,0,.1)";
-		screen.context.fillRect(400 + 5,800 + 5,800,50);
+		screen.context.fillRect(400 + 5,yPosition + 5,800,50);
 		screen.context.fillStyle = "rgba(255,255,255,.9)";
-		screen.context.fillRect(400,800,800,50);
+		screen.context.fillRect(400,yPosition,800,50);
 
 		let percentage = 0;
 
@@ -215,7 +227,7 @@
 			percentage = localPlayer.levelScore / localPlayer.goalScore;
 		} else {
 			percentage = 1;
-			screen.context.fillRect(550,750,500,50);
+			screen.context.fillRect(550,yPosition - 50,500,50);
 		}
 
 		if (localPlayer.levelScore == localPlayer.maxScore) {
@@ -224,15 +236,15 @@
 			screen.context.fillStyle = "rgba(100,181,245,1)";
 		}
 
-		screen.context.fillRect(400 + 4,800 + 4,(800-8) * percentage, 50 - 8)
+		screen.context.fillRect(400 + 4,yPosition + 4,(800-8) * percentage, 50 - 8)
 
 		screen.context.fillStyle = "rgba(0,0,0,1)";
 		screen.context.font = "30px Balloons";
 		screen.context.textAlign = "center"
-		screen.context.fillText(localPlayer.levelScore, 800, 837);
+		screen.context.fillText(localPlayer.levelScore, yPosition, 837);
 
 		if (localPlayer.levelScore >= localPlayer.goalScore) {
-			screen.context.fillText("Press Space to level up", 800, 787);
+			screen.context.fillText("Press Space to level up", yPosition, 787);
 		}
 	}
 
@@ -302,6 +314,24 @@
 		rotation = rotation * -1;
 	}
 
+	function calculateHeight() {
+		let maxHeight = document.querySelector(".container")offsetHeight;
+		let estimateHeight = screen.canvas.offsetWidth / 1.7777;
+
+		if (estimateHeight > maxHeight) {
+
+			customHeight.proportion = estimateHeight / maxHeight;
+
+			estimateHeight = maxHeight;
+
+			customHeight.custom = true;
+			customHeight.height = estimateHeight;
+		}
+
+		screen.canvas.style.height = estimateHeight + "px";
+
+	}
+
 
 
 	//Main method
@@ -312,7 +342,9 @@
 		await images.init();
 		await screen.init();
 
-		screen.canvas.style.height = (screen.canvas.offsetWidth / 1.7777) + "px";
+		//screen.canvas.style.height = (screen.canvas.offsetWidth / 1.7777) + "px";
+		calculateHeight();
+
 
 		var socket = io("https://blobtanks.herokuapp.com");
 
