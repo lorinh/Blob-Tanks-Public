@@ -315,7 +315,7 @@
 	}
 
 	function calculateHeight() {
-		let maxHeight = document.querySelector(".container")offsetHeight;
+		let maxHeight = document.querySelector(".container").offsetHeight;
 		let estimateHeight = screen.canvas.offsetWidth / 1.7777;
 
 		if (estimateHeight > maxHeight) {
