@@ -85,7 +85,8 @@
 			}
 
 			this.canvas.width = settings.canvasWidth;
-			this.canvas.height = settings.canvasHeight;
+			//this.canvas.height = settings.canvasHeight;
+			this.canvas.height = "0px"
 
 			this.context = this.canvas.getContext("2d");
 			this.width = this.canvas.width;
@@ -326,6 +327,12 @@
 
 			customHeight.custom = true;
 			customHeight.height = estimateHeight;
+
+			screen.canvas.height = settings.canvasHeight * customHeight.height;
+		} else {
+
+			screen.canvas.height = settings.canvasHeight;
+			
 		}
 
 		screen.canvas.style.height = estimateHeight + "px";
@@ -343,9 +350,7 @@
 		await screen.init();
 
 		//screen.canvas.style.height = (screen.canvas.offsetWidth / 1.7777) + "px";
-		screen.canvas.height = "0px";
 		calculateHeight();
-		screen.canvas.height = settings.canvasHeight;
 
 		var socket = io("https://blobtanks.herokuapp.com");
 
