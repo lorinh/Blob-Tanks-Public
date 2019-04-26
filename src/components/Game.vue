@@ -328,11 +328,11 @@
 			customHeight.custom = true;
 			customHeight.height = estimateHeight;
 
-			screen.canvas.height = settings.canvasHeight * customHeight.height;
+			screen.canvas.height = settings.canvasHeight * customHeight.proportion;
 		} else {
 
 			screen.canvas.height = settings.canvasHeight;
-			
+
 		}
 
 		screen.canvas.style.height = estimateHeight + "px";
