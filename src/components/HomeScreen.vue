@@ -7,9 +7,8 @@
   		<v-img :src="images.mainLogo" aspect-ratio="5.8" width="800px" class="titleContainer"></v-img>
  	</v-container>
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
-  		<p class="arial" >Welcome to Blob tanks!</p>
-  		 <p class="arial">A top down tank shooting game</p>
-  		 <v-btn color="success" class="align-right" to="/game">Play</v-btn>
+  		 <CustomP v-bind:text="texts.text1"/>
+  		 <CustomP v-bind:text="texts.text2"/>
   		 <CustomButton v-bind:text="texts.play"/>
   	</v-window>
   </v-container>
@@ -18,12 +17,14 @@
 <script>
 	import Game from "../components/Game";
 	import CustomButton from "../components/CustomButton";
+	import CustomP from "../components/CustomP";
 
 	export default {
 		name: "HomeScreen",
 		components: {
 			Game,
 			CustomButton,
+			CustomP,
 		},
 		data: () => ({
 			images: {
@@ -32,6 +33,8 @@
 			},
 			texts: {
 				play: "Play",
+				text1: "Welcome to Blob tanks!",
+				text2: "A top down tank shooting game",
 			}
 	    })
 	  }
@@ -68,18 +71,6 @@
 		bottom: 0;
 		right: 0;
 		margin: 0;
-	}
-	.arial {
-		font-family: arial;
-		font-weight: boldest;
-		font-size: 25px;
-		color: white;
-		/*-webkit-text-stroke: 1px black;*/
-		text-shadow:
-		   -1px -1px 0 #000,  
-		    1px -1px 0 #000,
-		    -1px 1px 0 #000,
-		     1px 1px 0 #000;
 	}
 	body {
 		background-color: black;

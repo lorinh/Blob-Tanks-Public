@@ -9,22 +9,28 @@
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
   		<p class="arial" >You have passed away....</p>
   		 <p class="arial">Better luck next time!</p>
-  		 <v-btn color="success" class="align-right" to="/">Main Menu</v-btn>
+  		 <CustomButton v-bind:text="texts.mainMenu"/>
   	</v-window>
   </v-container>
 </template>
 
 <script>
 	import Game from "../components/Game";
+	import CustomButton from "../components/CustomButton";
+
 	export default {
 		name: "GameOver",
 		components: {
-			Game
+			Game,
+			CustomButton,
 		},
 		data: () => ({
 			images: {
 				mainLogo: require('../../images/GameOver.png'),
 				gradiant: require('../../images/Gradiant.gif')
+			}
+			texts: {
+				mainMenu: "Main Menu",
 			}
 	    })
 	  }
