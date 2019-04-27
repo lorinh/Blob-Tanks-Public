@@ -17,6 +17,9 @@
 		cameraFollowDistance: 100,
 		canvasHeight: 900,
 		canvasWidth: 1600,
+		boardSizeX: 4000,
+    	boardSizeY: 4000,
+    	leaderLength: 5, //Number of players to show on leaderboard
 		upKey:       87, // w
 		upKeyAlt:    38, // Up Arrow
 		downKey:     83, // s
@@ -72,10 +75,6 @@
 	}
 
 	let screen = {
-		//canvas = document.querySelector(".canvas");
-		//this.canvas.width
-		//this.canvas.height
-		//this.canvas.fillStyle -- Color
 
 		init: async function() {
 
@@ -183,6 +182,7 @@
 		}
 
 		drawScore(localPlayer);
+		drawLeaderBoard(data);
 	}
 
 	//Draw each tank
@@ -229,17 +229,49 @@
 		screen.context.drawImage( img, x - camera.x, y - camera.y);
 	}
 
+	function drawLeaderBoard(data) {
+		let playerCount = Object.keys( data.players ).length;
+
+		if ( playerCount > settings.leaderLength ) {
+			playerCount = settings.leaderLength;
+		}
+
+		let playersSorted = Object.entries(data.players)
+		  	.map(entry => entry[1])
+		    .sort((a, b) => b.score - a.score);
+
+		//console.log("Player counted: " + playerCount);
+		//console.log(playersSorted);
+
+		screen.context.fillStyle = "#eeeeeeaa"
+
+		screen.context.fillRect(1195, 5, 400, 25 * playerCount);
+
+		screen.context.fillStyle = "rgba(0,0,0,1)";
+		screen.context.font = "22px Balloons";
+		screen.context.textAlign = "left"
+
+		for (let index = 0; index < playerCount; index++) {
+			screen.context.fillText(playersSorted[ index ].nickname + " " + playersSorted[ index ].score, 1200, 25 * index + 25);
+		}
+
+	}
+
 	//Draws bottom bar and score
 	function drawScore(localPlayer) {
 
 		let yPosition = 800;
 
+		//If screen is custom height, use it
 		if (customHeight.custom) {
 			yPosition *= customHeight.proportion;
 		}
 
+		//Draw shadow
 		screen.context.fillStyle = "rgba(0,0,0,.1)";
 		screen.context.fillRect(400 + 5,yPosition + 5,800,50);
+
+		//Draw white background
 		screen.context.fillStyle = "rgba(255,255,255,.9)";
 		screen.context.fillRect(400,yPosition,800,50);
 
@@ -249,22 +281,28 @@
 			percentage = localPlayer.levelScore / localPlayer.goalScore;
 		} else {
 			percentage = 1;
+
+			//Draw level box
 			screen.context.fillRect(550,yPosition - 50,500,50);
 		}
 
+		//Choose progress bar color
 		if (localPlayer.levelScore == localPlayer.maxScore) {
 			screen.context.fillStyle = "rgba(162,23,27,1)";
 		} else {
 			screen.context.fillStyle = "rgba(100,181,245,1)";
 		}
 
+		//Draw progress bar
 		screen.context.fillRect(400 + 4,yPosition + 4,(800-8) * percentage, 50 - 8)
 
+		//Draw score
 		screen.context.fillStyle = "rgba(0,0,0,1)";
 		screen.context.font = "30px Balloons";
 		screen.context.textAlign = "center"
 		screen.context.fillText(localPlayer.levelScore, 800, yPosition + 37);
 
+		//Draw level text
 		if (localPlayer.levelScore >= localPlayer.goalScore) {
 			screen.context.fillText("Press Space to level up", 800, yPosition - 23);
 		}
@@ -272,6 +310,17 @@
 
 	//Draws the background
 	function drawBackground() {
+
+		screen.context.fillStyle = "#eeeeeeaa"
+
+		//Draw out of bound areas
+		screen.context.fillRect(0, 0, 0 - camera.x, settings.canvasHeight);
+		screen.context.fillRect(0, 0, settings.canvasWidth, 0 - camera.y);
+		screen.context.fillRect(settings.boardSizeX - camera.x, 0, settings.boardSizeX - camera.x + settings.boardSizeX, settings.canvasHeight);
+		screen.context.fillRect(0, settings.boardSizeY - camera.y, settings.canvasWidth, settings.boardSizeY - camera.y + settings.boardSizeY);
+
+
+
 		screen.context.strokeStyle = "#ddddddaa"
 
 		for (let x = -1; x < settings.canvasWidth/100+1; x++) {
@@ -324,8 +373,8 @@
 	//Calculate rotation of tank based on mouse and tank position
 	function calculateRotation(localPlayer) {
 
-		let x = localPlayer.x + 50 - ( mouse.x + camera.x ); //TODO: Change 50 from magic number
-		let y = localPlayer.y + 50 - ( mouse.y + camera.y ); //TODO: Change 50 from magic number
+		let x = localPlayer.x + 50 - ( mouse.x + camera.x ); 
+		let y = localPlayer.y + 50 - ( mouse.y + camera.y );
 		let z = Math.pow( Math.pow(x,2) + Math.pow(y,2), .5);
 
 		rotation = Math.asin( y / z );
@@ -373,6 +422,8 @@
 		//screen.canvas.style.height = (screen.canvas.offsetWidth / 1.7777) + "px";
 		calculateHeight();
 
+		console.log("Finished loading screen")
+
 		var socket = io("https://blobtanks.herokuapp.com");
 
 
@@ -383,10 +434,12 @@
 		});
 		socket.emit("getPlayerID", getCookie("nickname"));
 
+		console.log("Waiting for playerID...");
 		while (playerID == "") {
 			await sleep(100);
 		}
 
+		console.log("Finished loading!");
 
 		//Add Key listeners
 		document.addEventListener('keydown', function(event) {
@@ -402,14 +455,11 @@
 		});
 
 		screen.canvas.addEventListener('mousemove', function(event) {
-			//console.log(event.clientX / screen.canvas.offsetWidth * 1600, event.clientY / screen.canvas.offsetHeight * 900);
 			mouse.x = event.clientX / screen.canvas.offsetWidth  * settings.canvasWidth;
 			mouse.y = event.clientY / screen.canvas.offsetHeight * settings.canvasHeight;
 		});
 
 		screen.canvas.addEventListener('mousedown', function(event) {
-
-			console.log("Mouse pressed");
 
 			mouse.x = event.clientX / screen.canvas.offsetWidth  * settings.canvasWidth;
 			mouse.y = event.clientY / screen.canvas.offsetHeight * settings.canvasHeight;
@@ -425,14 +475,14 @@
 		//Drawing to screen
 		socket.on("update", function(data) {
 			updateScreen(data);
-		})
+		});
 
 		socket.on("kill", function() {
 			console.log("Got kill event, sending home");
 
 			//this.$router.push({ path: 'home' }); //This would be preferred, but I couldn't get it working
 			window.location = "https://www.blobtanks.com/#/gameover"; // So we do this instead
-		})
+		});
 
 		//Input relayed to server
 		while (true) {

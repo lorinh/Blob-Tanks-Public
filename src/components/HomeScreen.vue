@@ -28,6 +28,12 @@
 	import CustomButton from "../components/CustomButton";
 	import CustomP from "../components/CustomP";
 
+	/*
+		TODO: Remember nickname
+		TODO: Enter to enter game
+
+	*/
+
 	export default {
 		name: "HomeScreen",
 		components: {
