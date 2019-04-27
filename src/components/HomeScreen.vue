@@ -9,7 +9,16 @@
   	<v-window class="elevation-4 grey lighten-5" v-model="window" vertical>
   		 <CustomP v-bind:text="texts.text1"/>
   		 <CustomP v-bind:text="texts.text2"/>
-  		 <CustomButton v-bind:text="texts.play" v-bind:goal="goals.game"/>
+		<v-container grid-list-md text-xs-center class="lower">
+			<v-layout row wrap>
+				<v-flex xs8>
+					<v-text-field label="Solo" placeholder="Nickname" solo></v-text-field>
+				</v-flex>
+				<v-flex xs4>
+					<v-btn color="success" class="align-right" v-on:click="playPressed">{{texts.play}}</v-btn>
+				</v-flex>
+			</v-layout>
+		</v-container>
   	</v-window>
   </v-container>
 </template>
@@ -39,7 +48,14 @@
 			goals: {
 				game: "/game"
 			}
-	    })
+	    }),
+	    methods: {
+	    	playPressed: function() {
+	    		let name = document.querySelector("input").value;
+	    		document.cookie = "nickname=" + name
+	    		this.$router.push({ path: 'game' });
+	    	}
+	    }
 	  }
 </script>
 
@@ -48,16 +64,22 @@
 	    font-family: "Bubbly";
 	    src: url(../../fonts/Balloons.ttf) format("truetype");
 	}
+	.lower {
+		margin-top: 20px;
+	}
 	.v-container {
 		width: 100%;
 	}
 	.align-right {
 		float: right;
 	}
+	.container {
+		background-color: 000;
+	}
 	.background {
 		background-image: url(../../images/Gradiant.gif);
 		background-repeat: no-repeat;
-		background-size: 100% 100%;
+		background-size: 102% 102%;
 
 		-webkit-filter: blur(10px);
 		-moz-filter: blur(10px);

@@ -15,7 +15,8 @@
 	    }),
 	    props: {
 	    	text: String,
-	    	goal: String
+	    	goal: String,
+	    	onclick: Function,
 	    }
 	  }
 </script>

@@ -144,6 +144,22 @@
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
+	function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+
 
 
 	//Drawing section
@@ -163,14 +179,14 @@
 
 		for (let key in data.players) {
 			//screen.context.drawImage( images.blueBlob.img, data.players[key].x - camera.x, data.players[key].y - camera.y);
-			drawPlayer(data.players[key].x, data.players[key].y, data.players[key].level, data.players[key].rotation);
+			drawPlayer(data.players[key].x, data.players[key].y, data.players[key].level, data.players[key].rotation, data.players[key].nickname);
 		}
 
 		drawScore(localPlayer);
 	}
 
 	//Draw each tank
-	function drawPlayer(x, y, level, rotation) {
+	function drawPlayer(x, y, level, rotation, nickname) {
 		let center = {x: 0, y: 0};
 
 		for (let key in levelTanks[level]) {
@@ -185,8 +201,13 @@
 			let blobPositionY = y + center.y + Math.sin( rotation + design.rot ) * design.dis;
 
 			drawImageFromCenter(images[design.img].img, blobPositionX, blobPositionY);
-
 		}
+
+		screen.context.fillStyle = "rgba(0,0,0,1)";
+		screen.context.font = "18px Arial";
+		screen.context.textAlign = "center"
+		screen.context.fillText(nickname, x - camera.x + 51, y - 10 - camera.y);
+
 	}
 
 	//Draw bullets to the screen
@@ -360,7 +381,7 @@
 			playerID = data;
 			console.log("PlayerID is: " + playerID);
 		});
-		socket.emit("getPlayerID", null);
+		socket.emit("getPlayerID", getCookie("nickname"));
 
 		while (playerID == "") {
 			await sleep(100);
@@ -412,8 +433,6 @@
 			//this.$router.push({ path: 'home' }); //This would be preferred, but I couldn't get it working
 			window.location = "https://www.blobtanks.com/#/gameover"; // So we do this instead
 		})
-
-
 
 		//Input relayed to server
 		while (true) {
