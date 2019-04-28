@@ -12,7 +12,7 @@
 		<v-container grid-list-md text-xs-center class="lower">
 			<v-layout row wrap>
 				<v-flex xs8>
-					<v-text-field label="Solo" placeholder="Nickname" solo></v-text-field>
+					<v-text-field label="Solo" @keyup.enter.native="playPressed" placeholder="Nickname" solo></v-text-field>
 				</v-flex>
 				<v-flex xs4>
 					<v-btn color="success" class="align-right" v-on:click="playPressed">{{texts.play}}</v-btn>
@@ -29,7 +29,6 @@
 	import CustomP from "../components/CustomP";
 
 	/*
-		TODO: Remember nickname
 		TODO: Enter to enter game
 
 	*/
@@ -61,6 +60,25 @@
 	    		document.cookie = "nickname=" + name
 	    		this.$router.push({ path: 'game' });
 	    	}
+	    },
+	    mounted: function() {
+    		let inputBox = document.querySelector("input")
+
+    		let name = "nickname=";
+			let decodedCookie = decodeURIComponent(document.cookie);
+			let ca = decodedCookie.split(';');
+			for(let i = 0; i <ca.length; i++) {
+				let c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					let value = c.substring(name.length, c.length);
+					inputBox.value = value;
+
+					return;
+				}
+			}
 	    }
 	  }
 </script>

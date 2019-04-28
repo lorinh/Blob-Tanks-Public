@@ -17,8 +17,8 @@
 		cameraFollowDistance: 100,
 		canvasHeight: 900,
 		canvasWidth: 1600,
-		boardSizeX: 4000,
-    	boardSizeY: 4000,
+		boardSizeX: 8000,
+    	boardSizeY: 8000,
     	leaderLength: 5, //Number of players to show on leaderboard
 		upKey:       87, // w
 		upKeyAlt:    38, // Up Arrow
